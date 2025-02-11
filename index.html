@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIDI Player with Sheet Music</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <h1>YouTube to MIDI Player with Sheet Music</h1>
+    <form id="youtubeForm">
+      <label for="videoURL">Enter YouTube Video URL:</label>
+      <input type="url" id="videoURL" placeholder="Enter URL" required />
+      <button type="submit">Fetch MIDI</button>
+    </form>
+
+    <div id="midiPlayer">
+      <h2>MIDI Player</h2>
+      <button id="playBtn" disabled>Play MIDI</button>
+    </div>
+
+    <div id="sheetMusic">
+      <h2>Sheet Music</h2>
+      <div id="sheet"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/midi.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vexflow@4.0.0-beta.4/dist/bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
