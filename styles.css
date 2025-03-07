@@ -1,45 +1,32 @@
 body {
     text-align: center;
     font-family: Arial, sans-serif;
-    background-color: #222;
+    background: linear-gradient(180deg, #1a1a2e, #16213e);
     color: white;
-    overflow: hidden;
     margin: 0;
+    overflow: hidden;
 }
 
-h1 {
-    margin: 10px 0;
-}
-
-select {
-    margin: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: none;
-    background: #333;
-    color: white;
-}
-
-/* 🎹 Piano stays at the bottom */
 .piano-container {
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
     width: 90%;
-    height: 180px;
+    height: 200px;
 }
 
 .piano {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
     position: relative;
+    background: #222;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-/* 🎵 Key Styles */
+/* 🎹 Key Styles */
 .key {
     width: 60px;
     height: 180px;
@@ -55,6 +42,7 @@ select {
 /* White Keys */
 .white {
     background: white;
+    color: black;
 }
 
 /* Black Keys */
@@ -67,6 +55,13 @@ select {
     top: 0;
     z-index: 2;
 }
+
+/* Correct Black Key Positions */
+.black:nth-child(2) { left: 40px; }
+.black:nth-child(4) { left: 100px; }
+.black:nth-child(7) { left: 220px; }
+.black:nth-child(9) { left: 280px; }
+.black:nth-child(11) { left: 340px; }
 
 /* 🎶 Falling Notes */
 .note {
