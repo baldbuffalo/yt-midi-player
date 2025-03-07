@@ -1,18 +1,42 @@
-const keys = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+const keyNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+let totalKeys = Math.floor(window.innerWidth / 60); // Adjust keys based on screen width
+let octaveCount = Math.ceil(totalKeys / 12);
+let fullKeySet = [];
 
+// Generate full set of keys to fit screen
+for (let i = 0; i < octaveCount; i++) {
+    fullKeySet.push(...keyNames.map(note => note + (i + 1))); // Append octave numbers
+}
+
+const piano = document.querySelector(".piano");
+
+// Create keys dynamically
+fullKeySet.forEach(note => {
+    let key = document.createElement("div");
+    key.classList.add("key");
+    
+    if (note.includes("#")) {
+        key.classList.add("black");
+    } else {
+        key.classList.add("white");
+    }
+
+    key.dataset.note = note;
+    key.innerText = note;
+    piano.appendChild(key);
+});
+
+// Function to create falling notes
 function createNote(noteName) {
     let note = document.createElement("div");
     note.classList.add("note");
     note.innerText = noteName;
 
-    // Find the key element
-    let keyIndex = keys.indexOf(noteName);
-    if (keyIndex === -1) return;
-
     let keyElements = document.querySelectorAll(".key");
-    let keyElement = keyElements[keyIndex];
+    let keyElement = [...keyElements].find(key => key.dataset.note === noteName);
 
-    // Align note to key
+    if (!keyElement) return;
+
     note.style.left = keyElement.offsetLeft + "px";
     note.style.top = "-20px"; // Start above screen
 
@@ -31,6 +55,6 @@ function createNote(noteName) {
 
 // Example: Random Notes Falling
 setInterval(() => {
-    let randomNote = keys[Math.floor(Math.random() * keys.length)];
+    let randomNote = fullKeySet[Math.floor(Math.random() * fullKeySet.length)];
     createNote(randomNote);
 }, 1000);
