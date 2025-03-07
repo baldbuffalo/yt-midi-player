@@ -14,14 +14,16 @@ body {
     width: 100%;
     height: 200px;
     display: flex;
+    justify-content: center; /* Center the piano */
 }
 
 .piano {
     display: flex;
-    width: 100%;
+    width: 80%; /* Adjusted width for better alignment */
     background: #222;
     padding: 10px 0;
     border-radius: 10px 10px 0 0;
+    position: relative; /* Allow black keys to be placed correctly */
 }
 
 /* 🎹 Key Styles */
@@ -41,6 +43,7 @@ body {
     background: white;
     color: black;
     flex: 1;
+    position: relative; /* Allow stacking of black keys */
 }
 
 /* Black Keys */
@@ -48,10 +51,11 @@ body {
     background: black;
     color: white;
     height: 120px;
-    width: 3.5%;
+    width: 20px; /* Adjusted width */
     position: absolute;
     top: 0;
     z-index: 2;
+    margin-left: -10px; /* Center black key on white key */
 }
 
 /* 🎶 Falling Notes */
