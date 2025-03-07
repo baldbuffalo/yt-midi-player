@@ -5,9 +5,8 @@ function createNote(noteName) {
     let keyElement = document.getElementById(noteName);
     if (!keyElement) return;
 
-    // Set position above screen
     note.style.left = keyElement.offsetLeft + "px";
-    note.style.top = "-20px"; // Start off-screen
+    note.style.top = "-20px"; // Start above screen
 
     document.body.appendChild(note);
 
@@ -16,7 +15,7 @@ function createNote(noteName) {
 
     let position = -20;
     let interval = setInterval(() => {
-        if (position >= window.innerHeight - 200) { // Stop near keys
+        if (position >= window.innerHeight - 200) {
             clearInterval(interval);
             document.body.removeChild(note);
         }
@@ -24,3 +23,10 @@ function createNote(noteName) {
         note.style.top = position + "px";
     }, 30);
 }
+
+// Example: Trigger some notes
+setInterval(() => {
+    let notes = ["C", "D", "E", "F", "G", "A", "B", "C#", "D#", "F#", "G#", "A#"];
+    let randomNote = notes[Math.floor(Math.random() * notes.length)];
+    createNote(randomNote);
+}, 1000);
