@@ -2,31 +2,38 @@ const keyNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B
 let totalKeys = Math.floor(window.innerWidth / 60); // Adjust keys based on screen width
 let octaveCount = Math.ceil(totalKeys / 12);
 let fullKeySet = [];
-
-// Generate full set of keys to fit screen
-for (let i = 0; i < octaveCount; i++) {
-    fullKeySet.push(...keyNames.map(note => note + (i + 1))); // Append octave numbers
-}
-
 const piano = document.querySelector(".piano");
 
-// Create keys dynamically
-fullKeySet.forEach(note => {
-    let key = document.createElement("div");
-
-    // If the note is a black key (sharp note)
-    if (note.includes("#")) {
-        key.classList.add("key", "black");
-    } else {
-        // Otherwise, it's a white key
-        key.classList.add("key", "white");
+// Generate full set of keys to fit screen
+function generateKeys() {
+    fullKeySet = [];
+    for (let i = 0; i < octaveCount; i++) {
+        fullKeySet.push(...keyNames.map(note => note + (i + 1))); // Append octave numbers
     }
+    
+    piano.innerHTML = ''; // Clear the previous keys
+    fullKeySet.forEach((note, index) => {
+        let key = document.createElement("div");
 
-    key.dataset.note = note;
-    key.innerText = note;
+        if (note.includes("#")) {
+            key.classList.add("key", "black");
+        } else {
+            key.classList.add("key", "white");
+        }
 
-    piano.appendChild(key);
-});
+        key.dataset.note = note;
+        key.innerText = note;
+
+        // Adjust the position of black keys
+        if (note.includes("#")) {
+            let previousWhiteKey = piano.children[index - 1];
+            let leftOffset = previousWhiteKey.offsetLeft + previousWhiteKey.offsetWidth * 0.7;
+            key.style.left = leftOffset + "px";
+        }
+
+        piano.appendChild(key);
+    });
+}
 
 // Function to create falling notes
 function createNote(noteName) {
@@ -60,3 +67,13 @@ setInterval(() => {
     let randomNote = fullKeySet[Math.floor(Math.random() * fullKeySet.length)];
     createNote(randomNote);
 }, 1000);
+
+// Handle window resizing
+window.addEventListener('resize', () => {
+    totalKeys = Math.floor(window.innerWidth / 60);
+    octaveCount = Math.ceil(totalKeys / 12);
+    generateKeys();
+});
+
+// Initial key generation
+generateKeys();
