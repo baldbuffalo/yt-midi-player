@@ -13,16 +13,18 @@ const piano = document.querySelector(".piano");
 // Create keys dynamically
 fullKeySet.forEach(note => {
     let key = document.createElement("div");
-    key.classList.add("key");
-    
+
+    // If the note is a black key (sharp note)
     if (note.includes("#")) {
-        key.classList.add("black");
+        key.classList.add("key", "black");
     } else {
-        key.classList.add("white");
+        // Otherwise, it's a white key
+        key.classList.add("key", "white");
     }
 
     key.dataset.note = note;
     key.innerText = note;
+
     piano.appendChild(key);
 });
 
